@@ -1,8 +1,11 @@
 const mongoose = require('mongoose');
 
 const livrosSchema = new mongoose.Schema({
-    _id : {type : mongoose.Types.ObjectId},
-    name : {type: String, required: true}
+    id : {type : mongoose.Types.ObjectId},
+    titulo : {type: String, required: true},
+    editora: {type: String, required: true},
+    pagina: {type: Number, required: true},
+    //authorId : {type : mongoose.Types.ObjectId, ref: 'id'},
 })
 
 const Livros = mongoose.model('livros', livrosSchema)
