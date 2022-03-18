@@ -32,23 +32,25 @@ class LivroController{
     }
 
     static updateLivro = async(req, res) =>{
-        const {id} = req.params
 
         try {
-            await Livros.findOneAndUpdate({where: {id: id}})
-            return res.status(200).json({message: `The book with id ${id} was successfully updated`})
+            const livroUpdated = await Livros.findByIdAndUpdate(req.params.id,{
+                $set: req.body
+            }, {next: true})
+            return res.status(200).json(livroUpdated)
         } catch (error) {
             return res.status(500).json({error: error.message})
         }
     }
     static deleteLivro = async(req, res) =>{
         const {id} = req.params
-
         try {
-            await Livros.findOneAndRemove({where: {id: id}})
-            return res.status(200).json({message: `The book with ${id} was successfully deleted`})
+            await Livros.findByIdAndDelete(req.params.id)
+            return res.status(200).json({message: `Livro id ${id} deleted`})
         } catch (error) {
             return res.status(500).json({error: error.message})
         }
     }
 }
+
+module.exports = LivroController
